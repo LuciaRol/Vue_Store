@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ropa Store</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Cabecera -->
+        <header>
+            <div>
+                <h1>My Closet</h1>
+                <p>Welcome to My Closet Store, your destiny to find the best fashion.</p>
+            </div>
+            <nav>
+                <a href="#" @click="setCategoryFilter('women\'s clothing')">Women</a>
+                <a href="#" @click="setCategoryFilter('men\'s clothing')">Men</a>
+                <a href="#" @click="setCategoryFilter('jewelery')">Jewelery</a>
+                <a href="#" @click="setCategoryFilter('electronics')">Electronics</a>
+                <a href="#" @click="search">All products</a>
+            </nav>
+          
+        </header>
+        <!-- contenedor para la búsqueda -->
+        <div class="search-and-order-container">
+            <!-- input de búsqueda y botones -->
+            <div class="search-buttons">
+                <input type="text" v-model="searchTerm" @keyup.enter="search" placeholder="Search">
+                <button @click="search">Search</button>
+                <button @click="clearSearch">Clean search</button>
+            </div>
+
+            <!-- clasificar -->
+            <div class="order-by-container">
+                <label for="sortBy">Sort by</label>
+                <select v-model="sortBy" @change="search">
+                    <option value="default">Default</option>
+                    <option value="asc">Ascendant price</option>
+                    <option value="desc">Descendant price</option>
+                    <option value="alpha asc">Alphabetic (A-Z)</option>
+                    <option value="alpha desc">Alphabetic (Z-A)</option>
+                </select>
+            </div>
+        </div>
+
+        
+        <!-- cargar -->
+        <div v-if="loading">Loading...</div>
+        <div v-if="error">{{ error }}</div>
+
+
+        <div class="productos">
+
+            <!-- lista de productos -->
+            <div v-if="products.length > 0">
+                <h2>Search results:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(product, index) in sortedProducts" :key="product.id">
+                            <td>
+                                <img :src="product.image" :alt="product.title" style="max-width: 100px; max-height: 100px;">
+                            </td>
+                            <td>{{ product.title }}</td>
+                            <td>${{ product.price }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>
+                                <button id="addtocart" @click="buyProduct(index)">Add to cart</button>
+                                <button @click="viewMore(index)">View more</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- detalles del producto seleccionado -->
+            <div v-if="selectedProduct">
+                <h2>Selected product details:</h2>
+                <div>
+                    <img :src="selectedProduct.image" :alt="selectedProduct.title"
+                        style="max-width: 200px; max-height: 200px;">
+                    <strong>{{ selectedProduct.title }}</strong>
+                    <p>Category: {{ selectedProduct.category }}</p>
+                    <p>Price: ${{ selectedProduct.price }}</p>
+                    <button id="addtocart" @click="buyProduct(selectedProductIndex)">Add to cart</button>
+                    <button @click="clearSelectedProduct">Exit</button>
+                </div>
+            </div>
+
+        </div>
+        
+        
+       
+       
+
+        <div style="position: absolute; top: 10px; right: 50px; cursor: pointer;" @click="toggleCart">
+            <div>
+                <span style="margin-right: 5px;">🛒</span> Shopping cart: {{ selectedProducts.length }}
+            </div>
+        </div>
+
+       <!-- Shopping Cart Popup -->
+<div v-if="showCart" style="position: fixed; top: 50px; right: 50px; background-color: #fff; padding: 10px; border: 2px solid #695D5F;">
+    <h3>Products into the shopping cart:</h3>
+    <ul>
+        <li v-for="(product, index) in selectedProducts" :key="index">
+            <img :src="product.image" :alt="product.title" style="max-width: 50px; max-height: 50px;">
+            {{ product.title }} - ${{ product.price }} - Quantity: {{ product.quantity }}
+            <button @click="removeFromCart(index)">Remove</button>
+        </li>
+    </ul>
+    <p>Total price: ${{ totalCartPrice }}</p>
+    <button @click="completePurchase">Finish transaction</button>
+    <button @click="closeCart">Close cart</button>
+</div>
+
+    
+    <script src="script.js"></script>
+</body>
+
+</html>

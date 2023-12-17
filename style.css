@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Overpass&family=Philosopher:wght@700&display=swap');
+
+*,
+*::before,
+*::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    color: #000;
+    justify-content: center;
+    font-family: 'Overpass', sans-serif;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* HEADER */
+header{
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+    justify-content: space-around;
+    align-items:end;
+    font-family: 'Overpass', sans-serif;
+    border-top: 1.5px solid #695D5F;
+    border-bottom: 1.5px solid #695D5F;
+    
+}
+
+header div {
+    flex-grow: 1;
+}
+
+header div h1{
+    font-family: 'Philosopher', sans-serif;
+    font-size: 3em;
+    color: #4d1c26;
+}
+
+header nav {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+header nav a{
+    text-decoration: none;
+    margin-left: 15px;
+    right: 10px;
+    color: #000;
+    font-size: 1.2em;
+}
+
+header nav a:hover{
+    text-decoration: underline 2px solid #E85A77;
+}
+
+header nav a:focus{
+    text-decoration: underline 2px solid #E85A77;
+    outline: none;
+    border: none;
+}
+
+
+/* BARRA DE BÚSQUEDA */
+.search-and-order-container{
+    display: flex;
+    padding: 5px;
+    background-color: #E85A77;
+    border-bottom: 2px solid #695D5F;
+    box-shadow: 0 2px 5px rgba(0, 0, 0.5, 0.5);
+    justify-content: space-between;
+}
+
+.search-buttons{
+    display: flex;
+    gap: 5px;
+}
+
+.search-buttons input{
+    padding: 5px;
+
+}
+
+.search-buttons input:focus{
+    border-color: #695D5F;
+    outline: none;
+
+}
+
+.search-buttons button{
+    
+}
+
+.order-by-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.productos{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+
+th, td{
+    padding: 20px 5px;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.5);
+    border-bottom: 0.5px solid #695D5F;
+}
+
+
+
+/* BOTONES */
+button{
+    background-color: #695D5F;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+button:hover{
+    border: 1.5px dotted #fff;
+}
+
+button:focus{
+    border: 1px dotted #fff;
+}
+
+#addtocart{
+    background-color: #E85A77;
+}
